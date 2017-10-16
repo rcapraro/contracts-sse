@@ -22,12 +22,12 @@ class ContractHandler {
     fun getContracts(rea: ServerRequest): Mono<ServerResponse> {
 
         val users = Flux.just(
-                Contract((0L..1000).random(), "AUTO", LocalDateTime.now().plusDays((0L..365).random())),
-                Contract((0L..1000).random(), "IMMEUBLE", LocalDateTime.now().plusDays((0L..365).random())),
-                Contract((0L..1000).random(), "MRP", LocalDateTime.now().plusDays((0L..365).random())))
+                Contract((0L..1000).random(), "AUTO", LocalDateTime.now()),
+                Contract((0L..1000).random(), "IMMEUBLE", LocalDateTime.now()),
+                Contract((0L..1000).random(), "MRP", LocalDateTime.now()))
 
         val contractStream = Flux.zip(
-                Flux.interval(Duration.ofMillis(200)),
+                Flux.interval(Duration.ofMillis(4000)),
                 users.repeat())
                 .map { it.t2 }
 
